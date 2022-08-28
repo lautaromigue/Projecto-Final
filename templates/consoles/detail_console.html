@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Detalle de la Consola
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+    <h1>Nombre = {{object.name}}</h1>
+    <h2>Precio = {{object.price}}</h2>
+    <h3>Stock = {{object.stock}}</h3>   
+    <h4>Productor = {{object.producer}}</h4>
+    <a href="/Tienda/delete-console/{{object.id}}/" class="btn btn-primary">Eliminar</a>
+
+{% endblock %}

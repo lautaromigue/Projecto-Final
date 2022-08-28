@@ -1,0 +1,10 @@
+Para mi pre-entrega cree una página web en donde se venderan Videojuegos, Consolas y Teléfonos (para el projecto final puede que agrege un par de modelos más).
+
+Entre las funcionalidades está la posibilidad de ver todos los productos que hay en la tienda y se veran separadas por tipo de producto y también podrás buscar alguno en particular.
+(Para esta entrega solo lo hice con Games pero para el final lo haré para todos).
+
+Se van a poder agregar productos de cualquier tipo mediante un formulario que será distinto según el tipo de producto 
+(en la navbar solo se podra acceder a las listas de cada producto, no a su creación ya que solo los admins deberían poder hacerlo).
+
+Para probar si todo carga bien, coviene al principio agregar algún producto, ver si aparece en la lista correspondiente y luego ver si la puedo buscar en la lista.
+Si vas a /Tienda/admin/ podrás agregar nuevos productos o modificar los existentes y hasta eliminarlos.

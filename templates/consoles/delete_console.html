@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Borrar Consola
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h2>Nombre de la Consola: {{object.name}}</h2>>
+
+<p>Esta seguro que desea eliminarlo?</p>
+
+<p>Nombre de la Consola: {{object.name}}</p>
+<p>Precio de la Consola: {{objecr.price}}</p>
+<p>Stock de la Consola: {{object.stock}}</p>
+<p>Productor: {{object.productor}}</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+        <p><input type="submit" value="Borrar"><p>
+    
+    </form>
+    
+
+{% endblock %}

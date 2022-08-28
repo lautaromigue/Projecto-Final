@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block contenido_que_cambia %}
+
+    <h1>El nombre del producto es {{create_phone.name}} <h1>
+    <h2>El precio del producto es {{create_phone.price}} </h2>
+    <h3>El stock del producto es {{create_phone.stock}} </h3>
+    <h4>El productor de la consola es {{create_console.producer}}</h4>
+    
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Lista de Consolas
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+    {% for console in object_list %}
+        <h1>{{console.name}}</h1>
+        <h2>{{console.price}}</h2>
+        <h3>{{console.stock}}</h3>   
+        <h4>{{console.producer}}</h4>
+        <a href="/Tienda/detail-console/{{console.id}}/" class="btn btn-primary">Detalle</a>
+    {% endfor %}  
+
+{% endblock %}
