@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-    Agrego Periferal
+    Formulario Periferal
 {% endblock %}
 
 {% block contenido_que_cambia %}
 
 <form action="" method="POST">
-    {% csrf_token %}
-    
-    <table>
+{% csrf_token %}
 
-        {{form.as_table}}
+    <p><input type="text" name="usuario" placeholder="Usuario"><p>
 
-    </table>
+    <p><input type="text" name="contraseña" placeholder="Contraseña"></p>
 
     <p><input type="submit" value="Enviar"></p>
 
 </form>
+
 
 {% endblock %}

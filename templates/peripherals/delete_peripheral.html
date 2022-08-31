@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Borrar Periferal
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h2>Nombre del Periferal: {{object.name}}</h2>>
+
+<p>Esta seguro que desea eliminarlo?</p>
+
+<p>Nombre del Periferal: {{object.name}}</p>
+<p>Precio del Periferal: {{object.price}}</p>
+<p>Stock del Periferal: {{object.stock}}</p>
+<p>Productor: {{object.producer}}</p>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+        <p><input type="submit" value="Borrar"><p>
+    
+    </form>
+    
+
+{% endblock %}
