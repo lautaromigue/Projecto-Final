@@ -99,7 +99,7 @@ def update_game(request, pk):
 # CONSOLES
 
 class List_consoles(ListView):
-    model = Consoles 
+    model = Consoles
     template_name = 'consoles/list_consoles.html'
     
 class Detaile_console(DetailView):
@@ -150,6 +150,7 @@ def search_products(request):
 
 
 #PHONES
+
 
 class List_phones(ListView):
     model = Phones 
@@ -220,4 +221,5 @@ def list_products(request):
         'phones':phones,
         'peripherals':peripherals,
     }
-    return render(request, 'list_products.html', context = context),
+    return render(request, 'list_products.html', context = context)
+
