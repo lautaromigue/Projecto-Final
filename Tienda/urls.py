@@ -4,7 +4,7 @@ from django.urls import path
 from Tienda.views import create_game, delete_game, formulario_games, list_games, search_products, update_game, \
     Create_phone, List_phones, Delete_phone, Detaile_phone, Update_phone, \
     List_consoles, Detaile_console, Create_console, Delete_console, Update_console, \
-    list_products,
+    list_products
 
 urlpatterns = [
     path('create-game/', create_game, name='create_game'),
