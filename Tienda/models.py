@@ -61,6 +61,5 @@ class Peripherals(models.Model):
         verbose_name = 'Peripheral'
         verbose_name_plural = 'Peripherals'  
 
-# PERIPHERALS (teclados, mouse, impresoras)
 
 
