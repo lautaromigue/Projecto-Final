@@ -5,31 +5,34 @@ from Tienda.models import Games, Consoles, Phones, Peripherals
 from Tienda.forms import formulario_for_games
 from django.views.generic import ListView, DetailView, CreateView, DeleteView   
 from django.views.generic.edit import UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # GAMES
 
+@login_required
 def create_game(request):
-    
-    if request.method == 'POST':
-        form = formulario_for_games(request.POST, request.FILES)
-        
-        if form.is_valid():
-            Games.objects.create(
-                name = form.cleaned_data['name'],
-                price = form.cleaned_data['price'],
-                stock = form.cleaned_data['stock'],
-                game_company = form.cleaned_data['game_company'],
-                image = form.cleaned_data['image'],
-            )
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_games(request.POST, request.FILES)
+            
+            if form.is_valid():
+                Games.objects.create(
+                    name = form.cleaned_data['name'],
+                    price = form.cleaned_data['price'],
+                    stock = form.cleaned_data['stock'],
+                    game_company = form.cleaned_data['game_company'],
+                    image = form.cleaned_data['image'],
+                )
 
-            return redirect(list_games)
-        
-    elif request.method == 'GET':
-        form = formulario_for_games()
-        context = {'form':form}
-        return render(request, 'games/create_game.html', context=context)
-        
+                return redirect(list_games)
+            
+        elif request.method == 'GET':
+            form = formulario_for_games()
+            context = {'form':form}
+            return render(request, 'games/create_game.html', context=context)
+    return redirect ("login")    
 
+@login_required
 def list_games(request):
     games = Games.objects.all()
     context = {
@@ -37,46 +40,52 @@ def list_games(request):
     }
     return render(request, 'games/list_games.html', context = context)
 
+@login_required
 def formulario_games(request):
     print(request.method)
     if request.method == 'POST': 
         print(request.POST)
     return render(request, 'games/formulario_games.html', context={})
 
+@login_required
 def delete_game(request, pk):
-    if request.method == 'GET':
-        game = Games.objects.get(pk=pk)
-        context = {'game':game}
-        return render(request, 'games/delete_game.html', context=context)
-    
-    elif request.method == 'POST':
-        game = Games.objects.get(pk=pk)
-        game.delete()
-        return redirect(list_games)
+    if request.user.is_superuser:
+        if request.method == 'GET':
+                game = Games.objects.get(pk=pk)
+                context = {'game':game}
+                return render(request, 'games/delete_game.html', context=context)
         
+        elif request.method == 'POST':
+                game = Games.objects.get(pk=pk)
+                game.delete()
+                return redirect(list_games)
+    return redirect ("login")        
 
+@login_required
 def update_game(request, pk):
-    if request.method == 'POST':
-        form = formulario_for_games(request.POST)
-        if form.is_valid():
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_games(request.POST)
+            if form.is_valid():
+                game = Games.objects.get(id=pk)
+                game.name = form.cleaned_data['name']
+                game.price = form.cleaned_data['price']
+                game.stock = form.cleaned_data['stock']
+                game.game_company = form.cleaned_data['game_company']
+                game.save()
+                
+                return redirect(list_games)
+        
+        elif request.method == 'GET':
             game = Games.objects.get(id=pk)
-            game.name = form.cleaned_data['name']
-            game.price = form.cleaned_data['price']
-            game.stock = form.cleaned_data['stock']
-            game.game_company = form.cleaned_data['game_company']
-            game.save()
-            
-            return redirect(list_games)
-    
-    elif request.method == 'GET':
-        game = Games.objects.get(id=pk)
-        form = formulario_for_games(initial={
-                                        'name':game.name, 
-                                        'price':game.price, 
-                                        'stock':game.stock, 
-                                        'game_company':game.game_company})
-        context = {'form':form}
-        return render(request, 'games/update_game.html', context=context)
+            form = formulario_for_games(initial={
+                                            'name':game.name, 
+                                            'price':game.price, 
+                                            'stock':game.stock, 
+                                            'game_company':game.game_company})
+            context = {'form':form}
+            return render(request, 'games/update_game.html', context=context)
+    return redirect ("login")           
 
 
 
@@ -98,7 +107,7 @@ def update_game(request, pk):
 
 # CONSOLES
 
-class List_consoles(ListView):
+class List_consoles(LoginRequiredMixin,ListView):
     model = Consoles
     template_name = 'consoles/list_consoles.html'
     
@@ -126,18 +135,27 @@ class Update_console(UpdateView):
 
 
 
+<<<<<<< HEAD
 
 # def search_games(request):
 #     search = request.GET['search']
 #     games = Games.objects.filter(name__icontains=search)
 #     context = {'games':games}
 #     return render(request, 'games/search_games.html', context=context)
+=======
+@login_required
+def search_products(request):
+    search = request.GET['search']
+    games = Games.objects.filter(name__icontains=search)
+    context = {'games':games}
+    return render(request, 'games/search_games.html', context=context)
+>>>>>>> d860706faaa8e62c4a3776d9ae2220898e5c3dee
 
 
 #PHONES
 
 
-class List_phones(ListView):
+class List_phones(LoginRequiredMixin,ListView):
     model = Phones 
     template_name = 'phones/list_phones.html'
     
@@ -168,7 +186,12 @@ class Update_phone(UpdateView):
 # PERIPHERALS
 
 
+<<<<<<< HEAD
 class List_peripherals(ListView):
+=======
+
+class List_peripherals(LoginRequiredMixin,ListView):
+>>>>>>> d860706faaa8e62c4a3776d9ae2220898e5c3dee
     model = Peripherals
     template_name = 'peripherals/list_peripherals.html'
     
@@ -195,7 +218,7 @@ class Update_peripheral(UpdateView):
 
 
 
-
+@login_required
 def list_products(request):
     games = Games.objects.all()
     consoles = Consoles.objects.all()
