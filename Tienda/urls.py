@@ -1,16 +1,17 @@
 from re import search
 from django.urls import path
 
-from Tienda.views import Create_peripheral, Delete_peripheral, Detaile_peripheral, List_peripherals, Update_peripheral, create_game, delete_game, formulario_games, list_games, search_products, update_game, \
+from Tienda.views import Create_peripheral, Delete_peripheral, Detaile_peripheral, List_peripherals, Update_peripheral, \
+    create_game, delete_game, formulario_games, list_games, update_game, \
     Create_phone, List_phones, Delete_phone, Detaile_phone, Update_phone, \
     List_consoles, Detaile_console, Create_console, Delete_console, Update_console, \
-    list_products
+    list_products, search_product
 
 urlpatterns = [
     path('create-game/', create_game, name='create_game'),
     path('list-games/', list_games, name='list_games'),
     path('formulario_games/', formulario_games, name = 'formulario'), 
-    path('search_products/', search_products, name='search'),
+    #path('search_games/', search_games, name='search'),
     path('delete-game/<int:pk>/', delete_game, name='delete_game'),
     path('update-game/<int:pk>/', update_game, name='delete_game'),
     
@@ -35,4 +36,5 @@ urlpatterns = [
     path('update-peripheral/<int:pk>/', Update_peripheral.as_view(), name='Update_peripheral'),    
     
     path('list-products/', list_products, name='list_products'),
+    path('search-product/', search_product, name='search_product'),
 ]

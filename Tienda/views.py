@@ -125,28 +125,13 @@ class Update_console(UpdateView):
 
 
 
-# PHONES
-
-# def create_phone(request):
-#     create_phone = Phones.objects.create(name='Moto G 200', price = 65000, stock = 15, producer = 'Motorola')
-#     context = {
-#         'create_phone':create_phone,
-#     }
-#     return render(request, 'phones/create_phone.html', context=context)
-
-# def list_phones(request):
-#     phones = Phones.objects.all()
-#     context = {
-#         'phones':phones
-#     }
-#     return render(request, 'phones/list_phones.html', context = context)
 
 
-def search_products(request):
-    search = request.GET['search']
-    games = Games.objects.filter(name__icontains=search)
-    context = {'games':games}
-    return render(request, 'games/search_games.html', context=context)
+# def search_games(request):
+#     search = request.GET['search']
+#     games = Games.objects.filter(name__icontains=search)
+#     context = {'games':games}
+#     return render(request, 'games/search_games.html', context=context)
 
 
 #PHONES
@@ -171,16 +156,16 @@ class Delete_phone(DeleteView):
     template_name = 'phones/delete_phone.html'
     success_url = '/Tienda/list-phones/'        
 
-class Update_phone(DeleteView):
+class Update_phone(UpdateView):
     model = Phones
     template_name = 'phones/update_phone.html'
+    fields = '__all__'
     success_url = '/Tienda/list-phones/' 
 
 
 
 
 # PERIPHERALS
-
 
 
 class List_peripherals(ListView):
@@ -202,9 +187,10 @@ class Delete_peripheral(DeleteView):
     template_name = 'peripherals/delete_peripheral.html'
     success_url = '/Tienda/list-peripherals/'        
 
-class Update_peripheral(DeleteView):
+class Update_peripheral(UpdateView):
     model = Peripherals
     template_name = 'peripherals/delete_peripheral.html'
+    fields = '__all__'
     success_url = '/Tienda/list-peripherals/'
 
 
@@ -223,3 +209,11 @@ def list_products(request):
     }
     return render(request, 'list_products.html', context = context)
 
+def search_product(request):
+    search = request.GET['search']
+    games = Games.objects.filter(name__icontains=search)
+    consoles = Consoles.objects.filter(name__icontains=search) 
+    phones = Phones.objects.filter(name__icontains=search)
+    peripherals = Peripherals.objects.filter(name__icontains=search) 
+    context = {'games':games, 'consoles':consoles, 'phones':phones, 'peripherals':peripherals}
+    return render(request, 'search_product.html', context=context)
