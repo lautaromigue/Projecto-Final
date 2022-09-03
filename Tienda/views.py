@@ -1,8 +1,9 @@
 from http.client import HTTPResponse
 from multiprocessing import context
 from django.shortcuts import render, redirect
+from re import search
 from Tienda.models import Games, Consoles, Phones, Peripherals
-from Tienda.forms import formulario_for_games
+from Tienda.forms import formulario_for_consoles, formulario_for_games
 from django.views.generic import ListView, DetailView, CreateView, DeleteView   
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -89,67 +90,123 @@ def update_game(request, pk):
 
 
 
+#CONSOLES
 
-
-#def create_console(request):
-#    create_console = Consoles.objects.create(name='PS4', price = 50000, stock = 10, producer = 'Sony')
-#    context = {
-#        'create_console':create_console,
-#    }
-#    return render(request, 'consoles/create_console.html', context=context)
-
-#def list_consoles(request):
-#    consoles = Consoles.objects.all()
-#    context = {
-#        'consoles':consoles
-#    }
-#    return render(request, 'consoles/list_consoles.html', context = context)
-
-# CONSOLES
-
-class List_consoles(LoginRequiredMixin,ListView):
-    model = Consoles
-    template_name = 'consoles/list_consoles.html'
+# class List_consoles(LoginRequiredMixin,ListView):
+#     model = Consoles
+#     template_name = 'consoles/list_consoles.html'
     
-class Detaile_console(DetailView):
-    model = Consoles
-    template_name = 'consoles/detail_console.html'
+# class Detaile_console(DetailView):
+#     model = Consoles
+#     template_name = 'consoles/detail_console.html'
     
-class Create_console(CreateView):
-    model = Consoles
-    template_name = 'consoles/create_console.html'
-    fields = '__all__'
-    success_url = '/Tienda/list-consoles/'
+# class Create_console(CreateView):
+#     model = Consoles
+#     template_name = 'consoles/create_console.html'
+#     fields = '__all__'
+#     success_url = '/Tienda/list-consoles/'
 
-class Delete_console(DeleteView):
-    model = Consoles
-    template_name = 'consoles/delete_console.html'
-    success_url = '/Tienda/list-consoles/'        
+# class Delete_console(DeleteView):
+#     model = Consoles
+#     template_name = 'consoles/delete_console.html'
+#     success_url = '/Tienda/list-consoles/'        
 
-class Update_console(UpdateView):
-    model = Consoles
-    template_name = 'consoles/update_console.html'
-    fields = '__all__'
-    success_url = '/Tienda/list-consoles/' 
-
-
+# class Update_console(UpdateView):
+#     model = Consoles
+#     template_name = 'consoles/update_console.html'
+#     fields = '__all__'
+#     success_url = '/Tienda/list-consoles/' 
 
 
-<<<<<<< HEAD
-
-# def search_games(request):
-#     search = request.GET['search']
-#     games = Games.objects.filter(name__icontains=search)
-#     context = {'games':games}
-#     return render(request, 'games/search_games.html', context=context)
-=======
 @login_required
-def search_products(request):
-    search = request.GET['search']
-    games = Games.objects.filter(name__icontains=search)
-    context = {'games':games}
-    return render(request, 'games/search_games.html', context=context)
->>>>>>> d860706faaa8e62c4a3776d9ae2220898e5c3dee
+def create_console(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_consoles(request.POST, request.FILES)
+            
+            if form.is_valid():
+                Consoles.objects.create(
+                    name = form.cleaned_data['name'],
+                    price = form.cleaned_data['price'],
+                    stock = form.cleaned_data['stock'],
+                    producer = form.cleaned_data['producer'],
+                    image = form.cleaned_data['image'],
+                )
+
+                return redirect(list_consoles)
+            
+        elif request.method == 'GET':
+            form = formulario_for_consoles()
+            context = {'form':form}
+            return render(request, 'consoles/create_console.html', context=context)
+    return redirect ("login")    
+ 
+
+
+@login_required
+def list_consoles(request):
+    consoles = Consoles.objects.all()
+    context = {
+        'consoles':consoles
+    }
+    return render(request, 'consoles/list_consoles.html', context = context)
+
+
+
+@login_required
+def formulario_consoles(request):
+    print(request.method)
+    if request.method == 'POST': 
+        print(request.POST)
+    return render(request, 'consoles/formulario_consoles.html', context={})
+
+
+
+@login_required
+def delete_console(request, pk):
+    if request.user.is_superuser:
+        if request.method == 'GET':
+                console = Consoles.objects.get(pk=pk)
+                context = {'console':console}
+                return render(request, 'consoles/delete_console.html', context=context)
+        
+        elif request.method == 'POST':
+                console = Consoles.objects.get(pk=pk)
+                console.delete()
+                return redirect(list_consoles)
+    return redirect ("login")        
+
+
+
+@login_required
+def update_console(request, pk):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_consoles(request.POST)
+            if form.is_valid():
+                console = Consoles.objects.get(id=pk)
+                console.name = form.cleaned_data['name']
+                console.price = form.cleaned_data['price']
+                console.stock = form.cleaned_data['stock']
+                console.producer = form.cleaned_data['producer']
+                console.save()
+                
+                return redirect(list_consoles)
+        
+        elif request.method == 'GET':
+            console = Consoles.objects.get(id=pk)
+            form = formulario_for_consoles(initial={
+                                            'name':console.name, 
+                                            'price':console.price, 
+                                            'stock':console.stock, 
+                                            'producer':console.game_company})
+            context = {'form':form}
+            return render(request, 'games/update_console.html', context=context)
+    return redirect ("login")  
+
+
+
+
 
 
 #PHONES
@@ -186,12 +243,7 @@ class Update_phone(UpdateView):
 # PERIPHERALS
 
 
-<<<<<<< HEAD
-class List_peripherals(ListView):
-=======
-
 class List_peripherals(LoginRequiredMixin,ListView):
->>>>>>> d860706faaa8e62c4a3776d9ae2220898e5c3dee
     model = Peripherals
     template_name = 'peripherals/list_peripherals.html'
     
@@ -232,6 +284,7 @@ def list_products(request):
     }
     return render(request, 'list_products.html', context = context)
 
+@login_required
 def search_product(request):
     search = request.GET['search']
     games = Games.objects.filter(name__icontains=search)
@@ -240,3 +293,4 @@ def search_product(request):
     peripherals = Peripherals.objects.filter(name__icontains=search) 
     context = {'games':games, 'consoles':consoles, 'phones':phones, 'peripherals':peripherals}
     return render(request, 'search_product.html', context=context)
+
