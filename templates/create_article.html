@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    About us
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h1>-{{new_article.title}}</h1>
+<h2>-{{new_article.description}}</h2>
+<h3> Trabajo realizado por: {{new_article.authors}}</h3>
+
+
+{% endblock %}
