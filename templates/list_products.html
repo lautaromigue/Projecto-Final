@@ -18,8 +18,11 @@
             <p class="card-text">Precio: {{game.price}}</p>
             <p class="card-text">Stock: {{game.stock}}</p>
             <p class="card-text">Compañia: {{game.game_company}}</p>
+            <a href="/Tienda/detail-game/{{game.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-game/{{game.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-game/{{game.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     {% endfor %} 
     </div>
@@ -38,8 +41,11 @@
             <p class="card-text">Precio: {{console.price}}</p>
             <p class="card-text">Stock: {{console.stock}}</p>
             <p class="card-text">Productora: {{console.producer}}</p>
+            <a href="/Tienda/detail-console/{{console.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-console/{{console.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-console/{{console.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     {% endfor %}  
     </div>
@@ -57,8 +63,11 @@
             <p class="card-text">Precio: {{phone.price}}</p>
             <p class="card-text">Stock: {{phone.stock}}</p>
             <p class="card-text">Productora: {{phone.producer}}</p>
+            <a href="/Tienda/detail-phone/{{phone.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-phone/{{phone.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-phone/{{phone.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     {% endfor %}  
     </div>
@@ -75,8 +84,11 @@
             <p class="card-text">Precio: {{peripheral.price}}</p>
             <p class="card-text">Stock: {{peripheral.stock}}</p>
             <p class="card-text">Productora: {{peripheral.producer}}</p>
+            <a href="/Tienda/detail-peripheral/{{peripheral.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-peripheral/{{peripheral.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-peripheral/{{peripheral.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     {% endfor %}  
     </div>

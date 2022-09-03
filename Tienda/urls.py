@@ -4,22 +4,22 @@ from django.urls import path
 #List_consoles, Detaile_console, Create_console, Delete_console, Update_console, \
 
 from Tienda.views import Create_peripheral, Delete_peripheral, Detaile_peripheral, List_peripherals, Update_peripheral, \
-    create_game, delete_game, formulario_games, list_games, update_game, \
+    create_game, delete_game, formulario_games, list_games, update_game, Detail_game, \
     Create_phone, List_phones, Delete_phone, Detaile_phone, Update_phone, \
-    list_consoles, delete_console, create_console, formulario_consoles, update_console,  \
+    list_consoles, delete_console, create_console, formulario_consoles, update_console, Detail_console,  \
     list_products, search_product
 
 urlpatterns = [
     path('create-game/', create_game, name='create_game'),
     path('list-games/', list_games, name='list_games'),
     path('formulario_games/', formulario_games, name = 'formulario'), 
-    #path('search_games/', search_games, name='search'),
     path('delete-game/<int:pk>/', delete_game, name='delete_game'),
     path('update-game/<int:pk>/', update_game, name='delete_game'),
+    path('detail-game/<int:pk>/', Detail_game.as_view(), name='Detail_game'),
 
 
     # path('list-consoles/', List_consoles.as_view(), name='List_peripherals'),  
-    # path('detail-console/<int:pk>/', Detaile_console.as_view(), name='Detaile_console'), 
+    path('detail-console/<int:pk>/', Detail_console.as_view(), name='Detaile_console'), 
     # path('create-console/', Create_console.as_view(), name= 'Create_console'), 
     # path('delete-console/<int:pk>/', Delete_console.as_view(), name= 'Delete_console'), 
     # path('update-console/<int:pk>/', Update_console.as_view(), name='Update_console'),

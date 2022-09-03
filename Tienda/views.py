@@ -25,7 +25,7 @@ def create_game(request):
                     image = form.cleaned_data['image'],
                 )
 
-                return redirect(list_games)
+                return redirect(list_products)
             
         elif request.method == 'GET':
             form = formulario_for_games()
@@ -59,7 +59,7 @@ def delete_game(request, pk):
         elif request.method == 'POST':
                 game = Games.objects.get(pk=pk)
                 game.delete()
-                return redirect(list_games)
+                return redirect(list_products)
     return redirect ("login")        
 
 @login_required
@@ -75,7 +75,7 @@ def update_game(request, pk):
                 game.game_company = form.cleaned_data['game_company']
                 game.save()
                 
-                return redirect(list_games)
+                return redirect(list_products)
         
         elif request.method == 'GET':
             game = Games.objects.get(id=pk)
@@ -89,6 +89,10 @@ def update_game(request, pk):
     return redirect ("login")           
 
 
+class Detail_game(DetailView):
+    model = Games
+    template_name = 'games/detail_game.html'
+
 
 #CONSOLES
 
@@ -96,9 +100,9 @@ def update_game(request, pk):
 #     model = Consoles
 #     template_name = 'consoles/list_consoles.html'
     
-# class Detaile_console(DetailView):
-#     model = Consoles
-#     template_name = 'consoles/detail_console.html'
+class Detail_console(DetailView):
+    model = Consoles
+    template_name = 'consoles/detail_console.html'
     
 # class Create_console(CreateView):
 #     model = Consoles
@@ -133,7 +137,7 @@ def create_console(request):
                     image = form.cleaned_data['image'],
                 )
 
-                return redirect(list_consoles)
+                return redirect(list_products)
             
         elif request.method == 'GET':
             form = formulario_for_consoles()
@@ -173,7 +177,7 @@ def delete_console(request, pk):
         elif request.method == 'POST':
                 console = Consoles.objects.get(pk=pk)
                 console.delete()
-                return redirect(list_consoles)
+                return redirect(list_products)
     return redirect ("login")        
 
 
@@ -191,7 +195,7 @@ def update_console(request, pk):
                 console.producer = form.cleaned_data['producer']
                 console.save()
                 
-                return redirect(list_consoles)
+                return redirect(list_products)
         
         elif request.method == 'GET':
             console = Consoles.objects.get(id=pk)
@@ -199,9 +203,9 @@ def update_console(request, pk):
                                             'name':console.name, 
                                             'price':console.price, 
                                             'stock':console.stock, 
-                                            'producer':console.game_company})
+                                            'producer':console.producer})
             context = {'form':form}
-            return render(request, 'games/update_console.html', context=context)
+            return render(request, 'consoles/update_console.html', context=context)
     return redirect ("login")  
 
 

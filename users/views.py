@@ -34,11 +34,12 @@ def register(request):
             return redirect("login")
         else:    
             context = {"errors":form.errors}
-            form = User_registration_form
+            form = User_registration_form()
             context["form"] = form
             return render(request, "users/register.html", {"form":form})
 
     elif request.method =='GET':
         form = User_registration_form()
         return render(request, 'users/register.html', {'form':form})
-    
+
+def profile(request):
