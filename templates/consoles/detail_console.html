@@ -6,10 +6,9 @@
 
 {% block contenido_que_cambia %}
 
-    <h1>Nombre = {{console.name}}</h1>
-    <h2>Precio = {{console.price}}</h2>
-    <h3>Stock = {{console.stock}}</h3>   
-    <h4>Productor = {{console.producer}}</h4>
-    <a href="/Tienda/delete-console/{{object.id}}/" class="btn btn-primary">Eliminar</a>
+    <h1>Nombre = {{object.name}}</h1>
+    <h2>Precio = {{object.price}}</h2>
+    <h3>Stock = {{object.stock}}</h3>   
+    <h4>Productor = {{object.producer}}</h4>
 
 {% endblock %}
