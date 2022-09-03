@@ -216,22 +216,22 @@ class List_phones(LoginRequiredMixin,ListView):
     model = Phones 
     template_name = 'phones/list_phones.html'
     
-class Detaile_phone(DetailView):
+class Detaile_phone(LoginRequiredMixin,DetailView):
     model = Phones
     template_name = 'phones/detail_phone.html'
     
-class Create_phone(CreateView):
+class Create_phone(LoginRequiredMixin,CreateView):
     model = Phones
     template_name = 'phones/create_phone.html'
     fields = '__all__'
     success_url = '/Tienda/list-phones/'
 
-class Delete_phone(DeleteView):
+class Delete_phone(LoginRequiredMixin,DeleteView):
     model = Phones
     template_name = 'phones/delete_phone.html'
     success_url = '/Tienda/list-phones/'        
 
-class Update_phone(UpdateView):
+class Update_phone(LoginRequiredMixin,UpdateView):
     model = Phones
     template_name = 'phones/update_phone.html'
     fields = '__all__'
@@ -247,22 +247,22 @@ class List_peripherals(LoginRequiredMixin,ListView):
     model = Peripherals
     template_name = 'peripherals/list_peripherals.html'
     
-class Detaile_peripheral(DetailView):
+class Detaile_peripheral(LoginRequiredMixin,DetailView):
     model = Peripherals
     template_name = 'peripherals/detail_peripheral.html'
     
-class Create_peripheral(CreateView):
+class Create_peripheral(LoginRequiredMixin,CreateView):
     model = Peripherals
     template_name = 'peripherals/create_peripheral.html'
     fields = '__all__'
     success_url = '/Tienda/list-peripherals/'
 
-class Delete_peripheral(DeleteView):
+class Delete_peripheral(LoginRequiredMixin,DeleteView):
     model = Peripherals
     template_name = 'peripherals/delete_peripheral.html'
     success_url = '/Tienda/list-peripherals/'        
 
-class Update_peripheral(UpdateView):
+class Update_peripheral(LoginRequiredMixin,UpdateView):
     model = Peripherals
     template_name = 'peripherals/delete_peripheral.html'
     fields = '__all__'
