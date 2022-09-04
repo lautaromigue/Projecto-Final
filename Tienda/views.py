@@ -198,20 +198,28 @@ def delete_console(request, pk):
 @login_required
 def update_console(request, pk):
     if request.user.is_superuser:
+        print('estoy aca')
         if request.method == 'POST':
-            form = formulario_for_consoles(request.POST)
+            print('estoy aca 2')
+            form = formulario_for_consoles(request.POST, request.FILES)
+            print(form.errors)
             if form.is_valid():
+                print('estoy aca 3')
                 console = Consoles.objects.get(id=pk)
                 console.name = form.cleaned_data['name']
                 console.price = form.cleaned_data['price']
                 console.stock = form.cleaned_data['stock']
                 console.producer = form.cleaned_data['producer']
-                console.image = form.cleaned_data['image']
+
+                if form.cleaned_data['image'] !=None:
+                    console.image = form.cleaned_data['image']
+                print(console)
                 console.save()
                 
             return redirect(list_products)
         
         elif request.method == 'GET':
+            print('estoy aca 4')
             console = Consoles.objects.get(id=pk)
             form = formulario_for_consoles(initial={
                                             'name':console.name, 
@@ -221,7 +229,7 @@ def update_console(request, pk):
                                             'image':console.image})
             context = {'form':form}
             return render(request, 'consoles/update_console.html', context=context)
-    return redirect ("login")  
+    return redirect ("login") 
 
 
 
@@ -321,14 +329,18 @@ def delete_phone(request, pk):
 def update_phone(request, pk):
     if request.user.is_superuser:
         if request.method == 'POST':
-            form = formulario_for_phones(request.POST)
+            form = formulario_for_phones(request.POST, request.FILES)
             if form.is_valid():
                 phone = Phones.objects.get(id=pk)
                 phone.name = form.cleaned_data['name']
                 phone.price = form.cleaned_data['price']
                 phone.stock = form.cleaned_data['stock']
                 phone.producer = form.cleaned_data['producer']
-                phone.image = form.cleaned_data['image']
+                
+                if form.cleaned_data['image'] !=None:
+                    phone.image = form.cleaned_data['image']
+                print(phone)
+                phone.save()
                 phone.save()
                 
             return redirect(list_products)
@@ -448,7 +460,10 @@ def update_peripheral(request, pk):
                 peripheral.price = form.cleaned_data['price']
                 peripheral.stock = form.cleaned_data['stock']
                 peripheral.producer = form.cleaned_data['producer']
-                peripheral.image = form.cleaned_data['image']
+                
+                if form.cleaned_data['image'] !=None:
+                    peripheral.image = form.cleaned_data['image']
+                print(peripheral)
                 peripheral.save()
                 
             return redirect(list_products)
