@@ -313,8 +313,8 @@ def formulario_phones(request):
 def delete_phone(request, pk):
     if request.user.is_superuser:
         if request.method == 'GET':
-                console = Phones.objects.get(pk=pk)
-                context = {'console':console}
+                phone = Phones.objects.get(pk=pk)
+                context = {'phone':phone}
                 return render(request, 'phones/delete_phone.html', context=context)
         
         elif request.method == 'POST':

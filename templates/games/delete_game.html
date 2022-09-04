@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-Borrar Producto
+Borrar Videojuego
 {% endblock %}
 
 {% block contenido_que_cambia %}
 
-<h2>Nombre de la Consola: {{console.name}}</h2>>
+<h2>Nombre del Videojuego: {{game.name}}</h2>>
 
 <p>Esta seguro que desea eliminarlo?</p>
 
@@ -14,6 +14,7 @@ Borrar Producto
 <p>Precio del juego: {{game.price}}</p>
 <p>Stock del juego: {{game.stock}}</p>
 <p>De la Compañia: {{game.game_company}}</p>
+<img src="{{game.image.url}}" class="card-img-top" alt="..." style="width:300px;height:400px;">
 
 <form action="" method="POST">
     {% csrf_token %}

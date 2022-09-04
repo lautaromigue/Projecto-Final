@@ -6,15 +6,15 @@ Borrar Periferal
 
 {% block contenido_que_cambia %}
 
-<h2>Nombre del Periferal: {{object.name}}</h2>>
+<h2>Nombre del Periferal: {{peripheral.name}}</h2>>
 
 <p>Esta seguro que desea eliminarlo?</p>
 
-<p>Nombre del Periferal: {{object.name}}</p>
-<p>Precio del Periferal: {{object.price}}</p>
-<p>Stock del Periferal: {{object.stock}}</p>
-<p>Productor: {{object.producer}}</p>
-
+<p>Nombre del Periferico: {{peripheral.name}}</p>
+<p>Precio del Periferico: {{peripheral.price}}</p>
+<p>Stock del Periferico: {{peripheral.stock}}</p>
+<p>Productora: {{peripheral.producer}}</p>
+<img src="{{peripheral.image.url}}" class="card-img-top" alt="..." style="width:300px;height:400px;">
 
 <form action="" method="POST">
     {% csrf_token %}
