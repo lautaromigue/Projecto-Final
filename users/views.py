@@ -41,5 +41,3 @@ def register(request):
     elif request.method =='GET':
         form = User_registration_form()
         return render(request, 'users/register.html', {'form':form})
-
-def profile(request):

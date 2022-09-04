@@ -17,9 +17,12 @@
             <h5 class="card-title">{{peripheral.name}}</h5>
             <p class="card-text">Precio: {{peripheral.price}}</p>
             <p class="card-text">Stock: {{peripheral.stock}}</p>
-            <p class="card-text">Compañia: {{peripheral.producer}}</p>
+            <p class="card-text">Productora: {{peripheral.producer}}</p>
+            <a href="/Tienda/detail-peripheral/{{peripheral.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-peripheral/{{peripheral.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-peripheral/{{peripheral.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     </div>
 

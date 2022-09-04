@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render, redirect
 from re import search
 from Tienda.models import Games, Consoles, Phones, Peripherals
-from Tienda.forms import formulario_for_consoles, formulario_for_games
+from Tienda.forms import formulario_for_consoles, formulario_for_games, formulario_for_phones
 from django.views.generic import ListView, DetailView, CreateView, DeleteView   
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -73,6 +73,7 @@ def update_game(request, pk):
                 game.price = form.cleaned_data['price']
                 game.stock = form.cleaned_data['stock']
                 game.game_company = form.cleaned_data['game_company']
+                game.image = form.changed_data['image']
                 game.save()
                 
                 return redirect(list_products)
@@ -83,7 +84,8 @@ def update_game(request, pk):
                                             'name':game.name, 
                                             'price':game.price, 
                                             'stock':game.stock, 
-                                            'game_company':game.game_company})
+                                            'game_company':game.game_company,
+                                            'image':game.image})
             context = {'form':form}
             return render(request, 'games/update_game.html', context=context)
     return redirect ("login")           
@@ -193,6 +195,7 @@ def update_console(request, pk):
                 console.price = form.cleaned_data['price']
                 console.stock = form.cleaned_data['stock']
                 console.producer = form.cleaned_data['producer']
+                console.image = form.cleaned_data['image']
                 console.save()
                 
                 return redirect(list_products)
@@ -203,7 +206,8 @@ def update_console(request, pk):
                                             'name':console.name, 
                                             'price':console.price, 
                                             'stock':console.stock, 
-                                            'producer':console.producer})
+                                            'producer':console.producer,
+                                            'image':console.image})
             context = {'form':form}
             return render(request, 'consoles/update_console.html', context=context)
     return redirect ("login")  
@@ -216,30 +220,119 @@ def update_console(request, pk):
 #PHONES
 
 
-class List_phones(LoginRequiredMixin,ListView):
-    model = Phones 
-    template_name = 'phones/list_phones.html'
+# class List_phones(LoginRequiredMixin,ListView):
+#     model = Phones 
+#     template_name = 'phones/list_phones.html'
     
 class Detaile_phone(LoginRequiredMixin,DetailView):
     model = Phones
     template_name = 'phones/detail_phone.html'
     
-class Create_phone(LoginRequiredMixin,CreateView):
-    model = Phones
-    template_name = 'phones/create_phone.html'
-    fields = '__all__'
-    success_url = '/Tienda/list-phones/'
+# class Create_phone(LoginRequiredMixin,CreateView):
+#     model = Phones
+#     template_name = 'phones/create_phone.html'
+#     fields = '__all__'
+#     success_url = '/Tienda/list-phones/'
 
-class Delete_phone(LoginRequiredMixin,DeleteView):
-    model = Phones
-    template_name = 'phones/delete_phone.html'
-    success_url = '/Tienda/list-phones/'        
+# class Delete_phone(LoginRequiredMixin,DeleteView):
+#     model = Phones
+#     template_name = 'phones/delete_phone.html'
+#     success_url = '/Tienda/list-phones/'        
 
-class Update_phone(LoginRequiredMixin,UpdateView):
-    model = Phones
-    template_name = 'phones/update_phone.html'
-    fields = '__all__'
-    success_url = '/Tienda/list-phones/' 
+# class Update_phone(LoginRequiredMixin,UpdateView):
+#     model = Phones
+#     template_name = 'phones/update_phone.html'
+#     fields = '__all__'
+#     success_url = '/Tienda/list-phones/' 
+    
+@login_required
+def create_phone(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_phones(request.POST, request.FILES)
+            
+            if form.is_valid():
+                Phones.objects.create(
+                    name = form.cleaned_data['name'],
+                    price = form.cleaned_data['price'],
+                    stock = form.cleaned_data['stock'],
+                    producer = form.cleaned_data['producer'],
+                    image = form.cleaned_data['image'],
+                )
+
+                return redirect(list_products)
+            
+        elif request.method == 'GET':
+            form = formulario_for_phones()
+            context = {'form':form}
+            return render(request, 'phones/create_phone.html', context=context)
+    return redirect ("login")    
+ 
+
+
+@login_required
+def list_phones(request):
+    phones = Phones.objects.all()
+    context = {
+        'phones':phones
+    }
+    return render(request, 'phones/list_phones.html', context = context)
+
+
+
+@login_required
+def formulario_phones(request):
+    print(request.method)
+    if request.method == 'POST': 
+        print(request.POST)
+    return render(request, 'phones/formulario_phones.html', context={})
+
+
+
+@login_required
+def delete_phone(request, pk):
+    if request.user.is_superuser:
+        if request.method == 'GET':
+                console = Phones.objects.get(pk=pk)
+                context = {'console':console}
+                return render(request, 'phones/delete_phone.html', context=context)
+        
+        elif request.method == 'POST':
+                console = Phones.objects.get(pk=pk)
+                console.delete()
+                return redirect(list_products)
+    return redirect ("login")        
+
+
+
+@login_required
+def update_phone(request, pk):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = formulario_for_phones(request.POST)
+            if form.is_valid():
+                phone = Phones.objects.get(id=pk)
+                phone.name = form.cleaned_data['name']
+                phone.price = form.cleaned_data['price']
+                phone.stock = form.cleaned_data['stock']
+                phone.producer = form.cleaned_data['producer']
+                phone.image = form.cleaned_data['image']
+                phone.save()
+                
+                return redirect(list_products)
+        
+        elif request.method == 'GET':
+            phone = Phones.objects.get(id=pk)
+            form = formulario_for_phones(initial={
+                                            'name':phone.name, 
+                                            'price':phone.price, 
+                                            'stock':phone.stock, 
+                                            'producer':phone.producer,
+                                            'image':phone.image})
+            context = {'form':form}
+            return render(request, 'phones/update_phone.html', context=context)
+    return redirect ("login")  
+
 
 
 

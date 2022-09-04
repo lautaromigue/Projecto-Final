@@ -18,8 +18,11 @@
             <p class="card-text">Precio: {{phone.price}}</p>
             <p class="card-text">Stock: {{phone.stock}}</p>
             <p class="card-text">Productora: {{phone.producer}}</p>
+            <a href="/Tienda/detail-phone/{{phone.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-phone/{{phone.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-phone/{{phone.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     </div>
 
