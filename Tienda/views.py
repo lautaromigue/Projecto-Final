@@ -1,5 +1,6 @@
 from http.client import HTTPResponse
 from multiprocessing import context
+from urllib import request
 from django.shortcuts import render, redirect
 from re import search
 from Tienda.models import Games, Consoles, Phones, Peripherals
@@ -224,6 +225,7 @@ def update_console(request, pk):
 #     model = Phones 
 #     template_name = 'phones/list_phones.html'
     
+
 class Detaile_phone(LoginRequiredMixin,DetailView):
     model = Phones
     template_name = 'phones/detail_phone.html'

@@ -1,5 +1,6 @@
+from http.client import HTTPResponse
 from multiprocessing import AuthenticationError, context
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 
 from django.contrib.auth.forms import AuthenticationForm 
 
@@ -41,3 +42,10 @@ def register(request):
     elif request.method =='GET':
         form = User_registration_form()
         return render(request, 'users/register.html', {'form':form})
+    
+
+def show_profile(request):
+    if request.user.is_authenticated:
+        return HttpResponse(request.user.profile.phone)    
+
+
