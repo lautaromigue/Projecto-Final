@@ -6,15 +6,15 @@ Borrar Celular
 
 {% block contenido_que_cambia %}
 
-<h2>Nombre del Celular: {{object.name}}</h2>>
+<h2>Nombre del Celular: {{phone.name}}</h2>>
 
 <p>Esta seguro que desea eliminarlo?</p>
 
-<p>Nombre del Celular: {{object.name}}</p>
-<p>Precio del Celular: {{object.price}}</p>
-<p>Stock del Celular: {{object.stock}}</p>
-<p>Productor: {{object.producer}}</p>
-<p>{{object.image}}</p>
+<p>Nombre del Celular: {{phone.name}}</p>
+<p>Precio del Celular: {{phone.price}}</p>
+<p>Stock del Celular: {{phone.stock}}</p>
+<p>Productor: {{phone.producer}}</p>
+<img src="{{phone.image.url}}" class="card-img-top" alt="..." style="width:300px;height:400px;">
 
 <form action="" method="POST">
     {% csrf_token %}

@@ -19,8 +19,10 @@
             <p class="card-text">Stock: {{game.stock}}</p>
             <p class="card-text">Compañia: {{game.game_company}}</p>
             <a href="/Tienda/detail-game/{{game.id}}/" class="btn btn-primary">Detalle</a>
+            {% if request.user.is_superuser %}
             <a href="/Tienda/update-game/{{game.id}}/" class="btn btn-primary">Editar</a>
             <a href="/Tienda/delete-game/{{game.id}}/" class="btn btn-danger">Borrar</a>
+            {% endif %}
         </div>
     </div>
 
