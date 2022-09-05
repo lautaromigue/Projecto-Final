@@ -75,8 +75,7 @@ def update_game(request, pk):
                 game.stock = form.cleaned_data['stock']
                 game.game_company = form.cleaned_data['game_company']
                 game.save()
-                
-                return redirect(list_products)
+            return redirect(list_products)
         
         elif request.method == 'GET':
             game = Games.objects.get(id=pk)

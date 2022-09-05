@@ -13,3 +13,9 @@ class Meta:
     model= User
     fields= ("username", "email", "password1", "password2")
     help_texts={k:"" for k in fields}    
+
+class Edit_profile_form(forms.Form):
+    user = forms.CharField (label="User name")
+    address = forms.CharField(label="Address") 
+    phone = forms.CharField(label="Phone number")
+    image = forms.ImageField()
