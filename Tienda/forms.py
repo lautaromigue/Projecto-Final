@@ -20,7 +20,7 @@ class formulario_for_phones(forms.Form):
     price = forms.FloatField()
     stock = forms.IntegerField()
     producer = forms.CharField(max_length=100)
-    image = forms.ImageField(required=False, blank=True)
+    image = forms.ImageField(required=False)
 
 
 class formulario_for_peripherals(forms.Form):

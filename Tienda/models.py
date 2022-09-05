@@ -37,7 +37,7 @@ class Phones(models.Model):
     price = models.FloatField()
     stock = models.IntegerField()
     producer = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='phone_images/', blank=True)
+    image = models.ImageField(upload_to='phone_images/', blank=True, null=True)
     
     def __str__(self):
         return self.name
