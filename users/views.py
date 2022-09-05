@@ -1,8 +1,11 @@
 from http.client import HTTPResponse
 from multiprocessing import AuthenticationError, context
 from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.forms import AuthenticationForm 
+
+from .forms import UserEditForm
 
 from django.contrib.auth import login, logout, authenticate 
 from users.forms import User_registration_form
@@ -46,6 +49,4 @@ def register(request):
 
 def show_profile(request):
     if request.user.is_authenticated:
-        return HttpResponse(request.user.profile.phone)    
-
-
+        return HttpResponse(request.user.profile)    
