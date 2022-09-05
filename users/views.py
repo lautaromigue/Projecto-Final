@@ -1,18 +1,12 @@
 from http.client import HTTPResponse
 from multiprocessing import AuthenticationError, context
 from django.shortcuts import render, redirect, HttpResponse
-<<<<<<< HEAD
-from django.views.generic import DetailView
-from django.contrib.auth.forms import AuthenticationForm 
-from django.contrib.auth.decorators import login_required
-=======
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.forms import AuthenticationForm 
 
 from .forms import UserEditForm
 
->>>>>>> 3c7e49a3d77521ff15b2ea43fede0966c3f0c7bf
 from django.contrib.auth import login, logout, authenticate 
 from users.forms import User_registration_form, Edit_profile_form
 from users.models import User_profile
