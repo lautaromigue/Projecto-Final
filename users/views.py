@@ -56,33 +56,38 @@ def show_profile(request):
 
     
 @login_required
-def my_profile(request):    
+def profile(request):    
     if request.user.is_authenticated:                                                   
         try:            
             user = User_profile.objects.get(user=request.user)
         except:            
             user = User_profile.objects.create(user=request.user)
         user.save()     
-        if request.method == "POST":                 
+    if request.method == "POST":                 
             form = Edit_profile_form(request.POST, request.FILES) 
               
             if form.is_valid():                                                             
                 user.user = form.cleaned_data['user']                           
                 user.address = form.cleaned_data ['address']
                 user.phone = form.cleaned_data['phone']
+                user.description = form.cleaned_data['description']
                 
                 if form.cleaned_data['image'] != None:
                     user.image = form.cleaned_data['image']
+                
+                user.website = form.cleaned_data['website']
                 user.save()    
                 context = {'form':form,'user':user}             
                 return render(request, 'users/profile.html', context=context)
             
-        elif request.method == "GET":                 
+    elif request.method == "GET":                 
             form = Edit_profile_form(initial = {
                             'user':user.user,
                             'address':user.address,
                             'phone':user.phone,
-                            'image': user.image,                           
+                            'description':user.description,
+                            'image': user.image,
+                            'website':user.website,                           
                                     })
             context = {'form':form,'user':user}    
             return render(request, 'users/profile.html', context=context)

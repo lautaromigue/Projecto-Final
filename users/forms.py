@@ -29,4 +29,6 @@ class Edit_profile_form(forms.Form):
     user = forms.CharField (label="User name")
     address = forms.CharField(label="Address") 
     phone = forms.CharField(label="Phone number")
-    image = forms.ImageField()
+    description = forms.CharField(required=False, label='Descripción')
+    image = forms.ImageField(required=False)
+    website = forms.CharField(required=False, label='WebSite')
