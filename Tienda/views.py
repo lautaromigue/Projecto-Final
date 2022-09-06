@@ -5,8 +5,7 @@ from django.shortcuts import render, redirect
 from re import search
 from Tienda.models import Games, Consoles, Phones, Peripherals
 from Tienda.forms import formulario_for_consoles, formulario_for_games, formulario_for_phones, formulario_for_peripherals
-# from django.views.generic import ListView, DetailView, CreateView, DeleteView   
-# from django.views.generic.edit import UpdateView
+
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -109,31 +108,7 @@ class Detail_game(DetailView):
 
 
 #CONSOLES
-
-# class List_consoles(LoginRequiredMixin,ListView):
-#     model = Consoles
-#     template_name = 'consoles/list_consoles.html'
     
-class Detail_console(DetailView):
-    model = Consoles
-    template_name = 'consoles/detail_console.html'
-    
-# class Create_console(CreateView):
-#     model = Consoles
-#     template_name = 'consoles/create_console.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-consoles/'
-
-# class Delete_console(DeleteView):
-#     model = Consoles
-#     template_name = 'consoles/delete_console.html'
-#     success_url = '/Tienda/list-consoles/'        
-
-# class Update_console(UpdateView):
-#     model = Consoles
-#     template_name = 'consoles/update_console.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-consoles/' 
 
 
 @login_required
@@ -232,38 +207,19 @@ def update_console(request, pk):
     return redirect ("login") 
 
 
+class Detail_console(DetailView):
+    model = Consoles
+    template_name = 'consoles/detail_console.html'
+
+
 
 
 
 
 #PHONES
 
-
-# class List_phones(LoginRequiredMixin,ListView):
-#     model = Phones 
-#     template_name = 'phones/list_phones.html'
     
-
-class Detaile_phone(LoginRequiredMixin,DetailView):
-    model = Phones
-    template_name = 'phones/detail_phone.html'
     
-# class Create_phone(LoginRequiredMixin,CreateView):
-#     model = Phones
-#     template_name = 'phones/create_phone.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-phones/'
-
-# class Delete_phone(LoginRequiredMixin,DeleteView):
-#     model = Phones
-#     template_name = 'phones/delete_phone.html'
-#     success_url = '/Tienda/list-phones/'        
-
-# class Update_phone(LoginRequiredMixin,UpdateView):
-#     model = Phones
-#     template_name = 'phones/update_phone.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-phones/' 
     
 @login_required
 def create_phone(request):
@@ -358,36 +314,16 @@ def update_phone(request, pk):
     return redirect ("login")  
 
 
+class Detaile_phone(LoginRequiredMixin,DetailView):
+    model = Phones
+    template_name = 'phones/detail_phone.html'
+
 
 
 
 # PERIPHERALS
 
-
-# class List_peripherals(LoginRequiredMixin,ListView):
-#     model = Peripherals
-#     template_name = 'peripherals/list_peripherals.html'
     
-class Detaile_peripheral(LoginRequiredMixin,DetailView):
-    model = Peripherals
-    template_name = 'peripherals/detail_peripheral.html'
-    
-# class Create_peripheral(LoginRequiredMixin,CreateView):
-#     model = Peripherals
-#     template_name = 'peripherals/create_peripheral.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-peripherals/'
-
-# class Delete_peripheral(LoginRequiredMixin,DeleteView):
-#     model = Peripherals
-#     template_name = 'peripherals/delete_peripheral.html'
-#     success_url = '/Tienda/list-peripherals/'        
-
-# class Update_peripheral(LoginRequiredMixin,UpdateView):
-#     model = Peripherals
-#     template_name = 'peripherals/delete_peripheral.html'
-#     fields = '__all__'
-#     success_url = '/Tienda/list-peripherals/'
     
 @login_required
 def create_peripheral(request):
@@ -480,6 +416,12 @@ def update_peripheral(request, pk):
             return render(request, 'peripherals/update_peripheral.html', context=context)
     return redirect ("login")     
     
+    
+class Detaile_peripheral(LoginRequiredMixin,DetailView):
+    model = Peripherals
+    template_name = 'peripherals/detail_peripheral.html'    
+    
+
 
 
 

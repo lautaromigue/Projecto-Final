@@ -15,16 +15,7 @@ class User_registration_form(UserCreationForm):
         help_texts={k:"" for k in fields}    
 
     
-class UserEditForm(UserChangeForm):
-    email = forms.EmailField(required=True)
-    password1 = forms.CharField(required=True, label='Change Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(required=True, label='Confirm Password', widget=forms.PasswordInput)
-    user = forms.CharField(label='Add / Change username')
-
-class Meta:
-    model= User
-    fields= ("username", "email", "password1", "password2")
-    help_texts={k:"" for k in fields}    
+   
 
 class Edit_profile_form(forms.Form):
     name = forms.CharField (label="User name")

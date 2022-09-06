@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.forms import AuthenticationForm 
 
-from .forms import UserEditForm
 
 from django.contrib.auth import login, logout, authenticate 
 from users.forms import User_registration_form, Edit_profile_form
@@ -59,39 +58,44 @@ def show_profile(request):
 def profile(request):    
     if request.user.is_authenticated:                                                   
         try:            
-            usuario = User_profile.objects.get(user=request.user)
+            user = User_profile.objects.get(user=request.user)
         except:            
-            usuario = User_profile.objects.create(user=request.user)
-        usuario.save()     
+            user = User_profile.objects.create(user=request.user)
+        user.save()     
     if request.method == "POST":                 
             form = Edit_profile_form(request.POST, request.FILES) 
-              
-            if form.is_valid():                                                             
-                usuario.name = form.cleaned_data['name']                           
-                usuario.address = form.cleaned_data ['address']
-                usuario.phone = form.cleaned_data['phone']
-                usuario.description = form.cleaned_data['description']
-                
-                if form.cleaned_data['image'] != None:
-                    usuario.image = form.cleaned_data['image']
-                
-                usuario.website = form.cleaned_data['website']
-                usuario.save()    
-                context = {'form':form,'usuario':usuario}             
-                return render(request, 'users/profile.html', context=context)
             
+            if form.is_valid():                                                             
+                user.name = form.cleaned_data['name']                           
+                user.address = form.cleaned_data ['address']
+                user.phone = form.cleaned_data['phone']
+                user.description = form.cleaned_data['description']
+               
+                if form.cleaned_data['image'] != None:
+                    user.image = form.cleaned_data['image']
+               
+                user.website = form.cleaned_data['website']
+              
+                user.save()    
+               
+                context = {'form':form,'user':user}             
+                return render(request, 'users/profile.html', context=context)
+           
     elif request.method == "GET":                 
             form = Edit_profile_form(initial = {
-                            'user':usuario.user,
-                            'address':usuario.address,
-                            'phone':usuario.phone,
-                            'description':usuario.description,
-                            'image':usuario.image,
-                            'website':usuario.website,                           
+                            'user':user.user,
+                            'address':user.address,
+                            'phone':user.phone,
+                            'description':user.description,
+                            'image':user.image,
+                            'website':user.website,                           
                                     })
-            context = {'form':form,'user':usuario}    
+            context = {'form':form,'user':user}    
             return render(request, 'users/profile.html', context=context)
     return redirect ("index")
+
+
+
 
 
 @login_required
