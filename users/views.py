@@ -82,7 +82,7 @@ def profile(request):
             
     elif request.method == "GET":                 
             form = Edit_profile_form(initial = {
-                            'name':usuario.name,
+                            'user':usuario.user,
                             'address':usuario.address,
                             'phone':usuario.phone,
                             'description':usuario.description,
