@@ -1,4 +1,5 @@
 from re import T
+from unicodedata import name
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
@@ -26,7 +27,7 @@ class Meta:
     help_texts={k:"" for k in fields}    
 
 class Edit_profile_form(forms.Form):
-    user = forms.CharField (label="User name")
+    name = forms.CharField (label="User name")
     address = forms.CharField(label="Address") 
     phone = forms.CharField(label="Phone number")
     description = forms.CharField(required=False, label='Descripción')

@@ -1,9 +1,10 @@
 from distutils.command.upload import upload
 from email.mime import image
+from unicodedata import name
 from django.db import models
 
 class User_profile(models.Model):
-    user = models.OneToOneField("auth.User", on_delete=models.CASCADE, related_name="profile")
+    name = models.OneToOneField("auth.User", on_delete=models.CASCADE, related_name="profile")
     address = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     description = models.CharField(max_length=400, blank=True)
