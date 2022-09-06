@@ -5,7 +5,7 @@ Introduccion:
 -Como gran parte ya estaba hecho, decidimos que Lautaro Miguel se encargue de agregar los modelos y productos faltantes con sus respectivas views y urls.
 -Mientras que Lautaro Alvarez se encargo de todo lo que involucre users, login, register y demas. 
 
-Lautaro Alvarez se encargo de las apps Users y Blog
+Lautaro Alvarez se encargo de las apps Users y Blog,
 Lautaro Miguel se encargo de las apps Tienda y Pagina
 
 Lautaro Alvarez: 
